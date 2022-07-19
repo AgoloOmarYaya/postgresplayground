@@ -5,11 +5,11 @@ workflows:
   version: 2
   test_and_deploy:
     jobs:
-      - agolo/java-junit-test:
-          name: UnitTest
-          context: docker
-          testCommand: ./gradlew test
-          javaOptions: -Xmx4g
+#      - agolo/java-junit-test:
+#          name: UnitTest
+#          context: docker
+#          testCommand: ./gradlew test
+#          javaOptions: -Xmx4g
 
 #      - agolo/java-junit-dockerized-test:
 #          name: IntegrationTest
@@ -19,19 +19,12 @@ workflows:
 #          requires:
 #            - UnitTest
 
-      - agolo/sonar-scan:
-          context: docker
-          buildPath: build
-          requires:
-            - UnitTest
-#            - IntegrationTest
-
       - agolo/docker-build:
           context: docker
           service: authentication-service
           language: java
-          requires:
-            - UnitTest
+#          requires:
+#            - UnitTest
 #            - IntegrationTest
 
       - agolo/deploy-k8s:
