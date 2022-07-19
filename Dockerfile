@@ -1,6 +1,6 @@
 FROM agolo.azurecr.io/ops/maven15 as mvn
-COPY . /postgresqlplayground
-WORKDIR /postgresqlplayground
+COPY . /postgresplayground
+WORKDIR /postgresplayground
 RUN ./gradlew bootJar
 
 FROM openjdk:15-jdk-alpine

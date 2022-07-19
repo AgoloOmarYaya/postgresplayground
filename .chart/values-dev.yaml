@@ -1,8 +1,8 @@
 agolo-service:
-  nameOverride: postgresqlplayground
+  nameOverride: postgresplayground
   replicas: 1
   image:
-    repository: agolo.azurecr.io/service/postgresqlplayground
+    repository: agolo.azurecr.io/service/postgresplayground
     tag: dev
 
   envStrings:
