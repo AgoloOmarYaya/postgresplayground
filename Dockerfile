@@ -14,6 +14,6 @@ RUN apk add glibc-2.28-r0.apk
 RUN adduser -D agolo
 USER agolo
 
-COPY --from=mvn /postgresqlplayground/build/libs/authentication-*.jar app.jar
+COPY --from=mvn /postgresqlplayground/build/libs/postgresql-*.jar app.jar
 ENV JAVA_OPTS="-XX:MaxRAMPercentage=75"
 ENTRYPOINT exec java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app.jar
