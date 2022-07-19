@@ -1,0 +1,50 @@
+agolo-service:
+  nameOverride: authentication-service
+  replicas: 1
+  image:
+    repository: agolo.azurecr.io/service/authentication-service
+
+  envConfigMaps:
+    SPRING_DATASOURCE_URL:
+      name: global-config
+      key: postgresql_dsn
+
+  envSecrets:
+    SPRING_DATASOURCE_USERNAME:
+      name: postgresql
+      key: username
+    SPRING_DATASOURCE_PASSWORD:
+      name: postgresql
+      key: password
+    SECRET_KEY_STRING:
+      name: auth-key
+      key: secret_key_string
+
+  resources:
+    requests:
+      cpu: 0.1
+      memory: 200Mi
+    limits:
+      cpu: 1
+      memory: 2G
+  monitor:
+    prometheus:
+      enabled: true
+      # reference to a port name mentioned above
+      portName: prometheus
+      honorLabels: true
+      path: /metrics
+    # Ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#define-a-tcp-liveness-probe
+    probes:
+      # failed liveness probe requests will trigger restarts to your pod
+      liveness:
+       initialDelaySeconds: 30
+       httpGet:
+          path: /actuator/health
+          port: 8080
+
+      readiness:
+        initialDelaySeconds: 30
+        httpGet:
+          path: /actuator/health
+          port: 8080
