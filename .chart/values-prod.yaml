@@ -1,8 +1,8 @@
 agolo-service:
-  nameOverride: authentication-service
+  nameOverride: postgresqlplayground
   replicas: 1
   image:
-    repository: agolo.azurecr.io/service/authentication-service
+    repository: agolo.azurecr.io/service/postgresqlplayground
     tag: prod
 
   envStrings:

@@ -21,7 +21,7 @@ workflows:
 
       - agolo/docker-build:
           context: docker
-          service: authentication-service
+          service: postgresqlplayground
           language: java
 #          requires:
 #            - UnitTest
@@ -29,7 +29,7 @@ workflows:
 
       - agolo/deploy-k8s:
           context: docker
-          release: authentication-service
+          release: postgresqlplayground
           checkoutdir: ~/project
           workdir: ~/project/.chart/
           extraFlags: -f values.yaml -f values-${CIRCLE_BRANCH}.yaml
